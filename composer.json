@@ -1,0 +1,15 @@
+{
+    "name": "5upermario/slim-skeleton",
+    "description": "Skeleton app for slim framework",
+    "type": "template",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "5upermario",
+            "email": "5upermario@users.noreply.github.com",
+            "role": "Developer",
+            "homepage": "https://5upermario.github.io"
+        }
+    ],
+    "require": {}
+}
