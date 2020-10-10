@@ -100,12 +100,12 @@ class TestCase extends PHPUnit_TestCase
 		return $this->createAppRequest('GET', $path);
 	}
 
-	protected function post(string $path, array $body)
+	protected function post(string $path, array $body = [])
 	{
 		return $this->createAppRequest('POST', $path, $body);
 	}
 
-	protected function delete(string $path, array $body)
+	protected function delete(string $path, array $body = [])
 	{
 		return $this->createAppRequest('DELETE', $path, $body);
 	}
