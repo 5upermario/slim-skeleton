@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "clear && printf '\\e[3J' && composer test",
-    "watch:test": "npm-watch test"
+    "watch:test": "npm-watch test",
+    "setup:docker": "docker run --rm --interactive --tty --volume $PWD:/app --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer install"
   },
   "repository": {
     "type": "git",
