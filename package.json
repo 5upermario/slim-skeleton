@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "clear && printf '\\e[3J' && composer test",
+    "test:docker": "clear && printf '\\e[3J' && docker run --rm --interactive --volume $PWD:/app --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer test",
     "watch:test": "npm-watch test",
+    "watch:test:docker": "npm-watch test:docker",
     "setup:docker": "docker run --rm --interactive --tty --volume $PWD:/app --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer install"
   },
   "repository": {
@@ -27,6 +29,11 @@
   },
   "watch": {
     "test": {
+      "patterns": ["config", "lib", "src", "tests"],
+      "extensions": "php",
+      "quiet": true
+    },
+    "test:docker": {
       "patterns": ["config", "lib", "src", "tests"],
       "extensions": "php",
       "quiet": true
