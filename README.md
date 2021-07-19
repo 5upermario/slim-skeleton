@@ -1,3 +1,5 @@
+[![PHP Composer](https://github.com/5upermario/slim-skeleton/actions/workflows/php.yml/badge.svg?branch=master)](https://github.com/5upermario/slim-skeleton/actions/workflows/php.yml)
+
 # Create project
 
 ```
