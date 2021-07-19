@@ -4,6 +4,11 @@
 composer create-project 5upermario/slim-skeleton project-name
 ```
 
+# Create project using docker
+```
+docker run --rm --interactive --tty --volume $PWD:/app --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp composer create-project 5upermario/slim-skeleton project-name
+```
+
 # Utilities
 
 ## Serve application
