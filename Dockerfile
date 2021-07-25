@@ -4,7 +4,7 @@ WORKDIR /var/www/html
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y tzdata && dpkg-reconfigure -f noninteractive tzdata
 
-RUN apt-get install -y php php-curl php-common php-cli php-mysql php-pear php-dev
+RUN apt-get install -y php php-curl php-common php-cli php-mysql php-pear php-dev php-mbstring git
 
 RUN pear channel-update pear.php.net
 RUN pecl channel-update pecl.php.net
