@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use DI\ContainerBuilder;
-use Dotenv\Dotenv;
 use Exception;
+use Library\Kernel;
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use Slim\Factory\AppFactory;
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Headers;
 use Slim\Psr7\Request as SlimRequest;
@@ -18,40 +16,22 @@ use Slim\Psr7\Uri;
 
 class TestCase extends PHPUnit_TestCase
 {
+	protected App $app;
+
 	/**
 	 * @return App
 	 * @throws Exception
 	 */
 	protected function getAppInstance(): App
 	{
-		$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-		$dotenv->load();
+		if (empty($this->app)) {
+			$kernel = new Kernel();
+			$kernel->setup();
 
-		// Instantiate PHP-DI ContainerBuilder
-		$containerBuilder = new ContainerBuilder();
+			$this->app = $kernel->getApp();
+		}
 
-		// Container intentionally not compiled for tests.
-
-		// Set up dependencies
-		$dependencies = require __DIR__ . '/../config/dependencies.php';
-		$dependencies($containerBuilder);
-
-		// Set up repositories
-		$repositories = require __DIR__ . '/../config/repositories.php';
-		$repositories($containerBuilder);
-
-		// Build PHP-DI Container instance
-		$container = $containerBuilder->build();
-
-		// Instantiate the app
-		AppFactory::setContainer($container);
-		$app = AppFactory::create();
-
-		// Register routes
-		$routes = require __DIR__ . '/../config/routes.php';
-		$routes($app);
-
-		return $app;
+		return $this->app;
 	}
 
 	/**
