@@ -10,8 +10,16 @@ class JsonResponder implements Responder
 {
 	public function respond(ResponseInterface $response, $data): ResponseInterface
 	{
-		$response->getBody()->write(json_encode($data));
+		$data = json_encode($data);
 
-		return $response;
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			$response->getBody()->write('JSON encode error!');
+
+			return $response->withStatus(500);
+		}
+
+		$response->getBody()->write($data);
+
+		return $response->withHeader('Content-Type', 'application/json');
 	}
 }

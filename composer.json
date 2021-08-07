@@ -13,6 +13,8 @@
   ],
   "scripts": {
     "test": "phpunit --testdox",
+    "coverage": "XDEBUG_MODE=coverage phpunit --coverage-text",
+    "coverage-html": "XDEBUG_MODE=coverage phpunit --coverage-html=\"coverage\"",
     "serve": "@php -S 0.0.0.0:8000 -t public",
     "post-root-package-install": [
       "composer install",
@@ -32,6 +34,7 @@
     "vlucas/phpdotenv": "^5.3"
   },
   "require-dev": {
+    "phpspec/prophecy-phpunit": "^2.0",
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {

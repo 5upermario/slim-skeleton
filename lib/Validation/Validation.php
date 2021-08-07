@@ -34,7 +34,7 @@ class Validation implements Validator
 		}
 
 		if (!$result) {
-			throw new ValidationException($this->errorMessages);
+			throw new ValidationException($this->errors());
 		}
 
 		return $result;
