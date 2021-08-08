@@ -19,7 +19,9 @@ class EventDispatcher
 
 	public function dispatch(Event $event)
 	{
-		foreach ($this->config[$event::class] as $listener) {
+		if (empty($event) || empty($this->config[get_class($event)])) return;
+
+		foreach ($this->config[get_class($event)] as $listener) {
 			($this->container->get($listener))->handle($event);
 		}
 	}
