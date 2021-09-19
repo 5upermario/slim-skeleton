@@ -9,12 +9,12 @@ use Tests\TestCase;
 
 class EventDispatcherTest extends TestCase
 {
-	public function testItWorks()
+	public function testItWorks(): void
 	{
 		// setup
 		$app        = $this->getAppInstance();
 		$event      = new ExampleEvent;
-		$dispatcher = new EventDispatcher($app->getContainer(), [ExampleEvent::class => [ExampleListener::class]]);
+		$dispatcher = new EventDispatcher($this->getContainer(), [ExampleEvent::class => [ExampleListener::class]]);
 
 		// run
 		$dispatcher->dispatch($event);
@@ -31,7 +31,7 @@ class ExampleEvent implements Event
 
 class ExampleListener implements Listener
 {
-	/** @var ExampleEvent $event */
+	/** @param ExampleEvent $event */
 	public function handle(Event $event): void
 	{
 		$event->isCalled = true;

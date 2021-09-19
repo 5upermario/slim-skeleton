@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class ExampleEntityTest extends TestCase
 {
-	public function testItWorks()
+	public function testItWorks(): void
 	{
 		//setup
 		$example = new ExampleEntity('Test');

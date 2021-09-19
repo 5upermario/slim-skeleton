@@ -9,7 +9,7 @@ use Library\Event\Listener;
 
 class ExampleListener implements Listener
 {
-	/** @var ExampleEvent $event */
+	/** @param ExampleEvent $event */
 	public function handle(Event $event): void
 	{
 		$event->isCalled = true;

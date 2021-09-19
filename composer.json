@@ -20,13 +20,15 @@
       "composer install",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "npm install"
-    ]
+    ],
+    "static-analysis": "phpstan analyse --level=8 lib src tests"
   },
   "config": {
     "process-timeout": 0,
     "sort-packages": true
   },
   "require": {
+    "5upermario/validation-php": "^1.0",
     "monolog/monolog": "^2.3",
     "php-di/php-di": "^6.3",
     "slim/psr7": "^1.4",
@@ -34,7 +36,11 @@
     "vlucas/phpdotenv": "^5.3"
   },
   "require-dev": {
+    "jangregor/phpstan-prophecy": "^0.8.1",
     "phpspec/prophecy-phpunit": "^2.0",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan": "^0.12.95",
+    "phpstan/phpstan-phpunit": "^0.12.22",
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {

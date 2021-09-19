@@ -12,7 +12,7 @@ class JsonResponderTest extends TestCase
 {
 	use ProphecyTrait;
 
-	public function testJsonEncodeIsNotSuccessful()
+	public function testJsonEncodeIsNotSuccessful(): void
 	{
 		// setup
 		$streamProphecy    = $this->prophesize(StreamInterface::class);
@@ -29,7 +29,7 @@ class JsonResponderTest extends TestCase
 		$responseProphecy1->withStatus(500)->shouldBeCalledOnce();
 	}
 
-	public function testJsonEncodeIsSuccessful()
+	public function testJsonEncodeIsSuccessful(): void
 	{
 		// setup
 		$streamProphecy    = $this->prophesize(StreamInterface::class);

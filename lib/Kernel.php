@@ -25,7 +25,7 @@ class Kernel
 	{
 		$containerBuilder = new ContainerBuilder();
 
-		if (false) { // Should be set to true in production
+		if (isset($_ENV['ENVIRONMENT']) && $_ENV['ENVIRONMENT'] == 'production') {
 			$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
 		}
 
@@ -68,7 +68,7 @@ class Kernel
 		$this->setupApp();
 	}
 
-	public function run()
+	public function run(): void
 	{
 		$this->app->run();
 	}

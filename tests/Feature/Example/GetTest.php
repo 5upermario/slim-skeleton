@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class GetTest extends TestCase
 {
-	public function testItWorks()
+	public function testItWorks(): void
 	{
 		//setup
 

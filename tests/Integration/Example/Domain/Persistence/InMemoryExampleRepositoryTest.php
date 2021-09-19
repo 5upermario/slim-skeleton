@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class InMemoryExampleRepositoryTest extends TestCase
 {
-	public function testItWorks()
+	public function testItWorks(): void
 	{
 		//setup
 		$repository = new InMemoryExampleRepository;

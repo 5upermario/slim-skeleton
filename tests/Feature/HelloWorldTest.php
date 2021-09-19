@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class HelloWorldTest extends TestCase
 {
-	public function testItWorks()
+	public function testItWorks(): void
 	{
 		//setup
 

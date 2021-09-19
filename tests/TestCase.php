@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use DI\Container;
 use Exception;
 use Library\Kernel;
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Psr7\Factory\StreamFactory;
@@ -17,6 +19,14 @@ use Slim\Psr7\Uri;
 class TestCase extends PHPUnit_TestCase
 {
 	protected App $app;
+	protected Container $container;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->getAppInstance();
+	}
 
 	/**
 	 * @return App
@@ -28,18 +38,24 @@ class TestCase extends PHPUnit_TestCase
 			$kernel = new Kernel();
 			$kernel->setup();
 
-			$this->app = $kernel->getApp();
+			$this->container = $kernel->getContainer();
+			$this->app       = $kernel->getApp();
 		}
 
 		return $this->app;
 	}
 
+	protected function getContainer(): Container
+	{
+		return $this->container;
+	}
+
 	/**
-	 * @param string $method
-	 * @param string $path
-	 * @param array  $headers
-	 * @param array  $cookies
-	 * @param array  $serverParams
+	 * @param string        $method
+	 * @param string        $path
+	 * @param array<string> $headers
+	 * @param array<string> $cookies
+	 * @param array<mixed>  $serverParams
 	 * @return Request
 	 */
 	protected function createRequest(
@@ -51,6 +67,11 @@ class TestCase extends PHPUnit_TestCase
 	): Request {
 		$uri    = new Uri('', '', 80, $path);
 		$handle = fopen('php://temp', 'w+');
+
+		if ($handle === false) {
+			throw new Exception('Cannot open temp for write');
+		}
+
 		$stream = (new StreamFactory())->createStreamFromResource($handle);
 		$h      = new Headers();
 
@@ -61,6 +82,12 @@ class TestCase extends PHPUnit_TestCase
 		return new SlimRequest($method, $uri, $h, $cookies, $serverParams, $stream);
 	}
 
+	/**
+	 * @param array<mixed>  $body
+	 * @param array<string> $headers
+	 * @param array<string> $cookies
+	 * @param array<mixed>  $serverParams
+	 */
 	protected function createAppRequest(
 		string $method,
 		string $path,
@@ -68,24 +95,26 @@ class TestCase extends PHPUnit_TestCase
 		array $headers = ['HTTP_ACCEPT' => 'application/json'],
 		array $cookies = [],
 		array $serverParams = []
-	) {
+	): ResponseInterface {
 		$app     = $this->getAppInstance();
 		$request = $this->createRequest($method, $path, $headers, $cookies, $serverParams)->withParsedBody($body);
 
 		return $app->handle($request);
 	}
 
-	protected function get(string $path)
+	protected function get(string $path): ResponseInterface
 	{
 		return $this->createAppRequest('GET', $path);
 	}
 
-	protected function post(string $path, array $body = [])
+	/** @param array<mixed> $body */
+	protected function post(string $path, array $body = []): ResponseInterface
 	{
 		return $this->createAppRequest('POST', $path, $body);
 	}
 
-	protected function delete(string $path, array $body = [])
+	/** @param array<mixed> $body */
+	protected function delete(string $path, array $body = []): ResponseInterface
 	{
 		return $this->createAppRequest('DELETE', $path, $body);
 	}
