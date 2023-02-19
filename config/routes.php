@@ -7,7 +7,6 @@ use Library\Middleware\CorsMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use Slim\Exception\HttpNotFoundException;
 
 return function (App $app) {
 	$app->addMiddleware(new CorsMiddleware);
@@ -29,6 +28,8 @@ return function (App $app) {
 	 * NOTE: make sure this route is defined last
 	 */
 	$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Request $request, Response $response) {
-		throw new HttpNotFoundException($request);
+		$response->getBody()->write('Not found');
+
+		return $response->withStatus(404);
 	});
 };
