@@ -25,16 +25,26 @@
   },
   "homepage": "https://github.com/5upermario/slim-skeleton#readme",
   "devDependencies": {
-    "npm-watch": "^0.6.0"
+    "npm-watch": "^0.11.0"
   },
   "watch": {
     "test": {
-      "patterns": ["config", "lib", "src", "tests"],
+      "patterns": [
+        "config",
+        "lib",
+        "src",
+        "tests"
+      ],
       "extensions": "php",
       "quiet": true
     },
     "test:docker": {
-      "patterns": ["config", "lib", "src", "tests"],
+      "patterns": [
+        "config",
+        "lib",
+        "src",
+        "tests"
+      ],
       "extensions": "php",
       "quiet": true
     }
